@@ -1,0 +1,97 @@
+<!--
+  ~ Copyright 2017 Okta, Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>GVTTC</title>
+    <!--/*/ <th:block th:include="head :: head"/> /*/-->
+    
+	<style>
+	.button {
+	  background-color: #4CAF50;
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+	</style>
+</head>
+  <body id="samples">
+  <div th:replace="menu :: menu"></div>
+  
+  	 
+    <div id="content" class="container">    		
+    	<img src="/images/gvttc_logo_wide.png" alt="GVTTC">
+      	<h2>Welcome to the GVTTC website</h2>
+
+	      <div th:unless="${#authorization.expression('isAuthenticated()')}">
+	        <p>Hello!</p>
+	        
+	        <div>
+			<p>The Genesee Valley Table Tennis Club of Rochester, New York plays at the Rochester Sports Garden in an excellent facility with great playing conditions: Tournament quality Joola and Butterfly tables, high ceilings, an ample well-lit parking lot and wonderful Pulastic flooring. The history of the club dates to the 1930's, and it has produced, and is continuing to produce, many fine players who have competed successfully nationally and internationally. More historical details are available by clicking the history button below.</p>
+
+			<p>Table tennis is an enjoyable and demanding Olympic sport suitable for all ages and our members range from ages 8 to 85. It is one of the quickest sports in existence and one of the most demanding mentally. Come see why table tennis is one of the most popular sports in the world.</p>
+			</div>
+	        
+	        
+	        <p>If you have an account, click on the button below to login. If not, click the <a th:href="@{/registration}">registration</a>  link or the button below to create an account.</p>
+	        <p>After you authenticate, you will be returned to this page.</p>
+	      </div>
+	
+	      <div th:if="${#authorization.expression('isAuthenticated()')}">
+	        <p>Welcome home, <span th:text="${#authentication.name}">Joe Coder</span>!</p>
+	        <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
+	      </div>
+	
+		    <form method="get" th:action="@{/oauth2/authorization/okta}" th:unless="${#authorization.expression('isAuthenticated()')}">
+	          <button id="login-button" class="button" type="submit">Login</button>
+	        </form>	
+	       
+	       <div th:unless="${#authorization.expression('isAuthenticated()')}">
+	       	<span class="two_column_left" style="float: left; text-align:center;"><a class="button" href="/registration" style="text-align:center;">Register</a></span>
+	       </div>
+	
+    </div>
+
+	<!-- 
+    <div id="content" class="container">
+      <h2>Custom Login + Spring Boot Example</h2>
+
+      <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <p>Hello!</p>
+        <p>If you're viewing this page then you have successfully configured and started this example server.</p>
+        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot Starter</a> to add the <a href="https://developer.okta.com/authentication-guide/implementing-authentication/auth-code.html">Authorization Code Flow</a> to your application.</p>
+        <p>When you click the login button below, you will be redirected to the login page on your Okta org.  After you authenticate, you will be returned to this application.</p>
+      </div>
+
+      <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <p>Welcome home, <span th:text="${#authentication.name}">Joe Coder</span>!</p>
+        <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
+        <p>Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
+      </div>
+
+        <form method="get" th:action="@{/oauth2/authorization/okta}" th:unless="${#authorization.expression('isAuthenticated()')}">
+          <button id="login-button" class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+    
+    -->
+  </body>
+</html>
